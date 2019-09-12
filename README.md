@@ -1,2 +1,0 @@
-# Scripts
-Scripts for everything
