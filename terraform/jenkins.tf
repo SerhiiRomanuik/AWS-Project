@@ -16,18 +16,18 @@ resource "aws_instance" "jenkins" {
   tags = {
     Name = "Jenkins"
   }
-#   provisioner "file" {
-#     source      = "./script3.sh"
-#     destination = "/home/ubuntu/script3.sh"
-#   }
-#     connection {
-#       type        = "ssh"
-#       user        = "ubuntu"
-#       private_key = "${file("${var.pr_key}")}"
-#       host        = "${aws_instance.jenkins.public_ip}"
-#     }
+  provisioner "file" {
+    source      = "./script3.sh"
+    destination = "/home/ubuntu/script3.sh"
+  }
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file("${var.pr_key}")}"
+      host        = "${aws_instance.jenkins.public_ip}"
+    }
   
-#   provisioner "remote-exec" {
-#     inline = ["bash /home/ubuntu/script3.sh"]
-#    }
+  provisioner "remote-exec" {
+    inline = ["bash /home/ubuntu/script3.sh"]
+   }
  }
