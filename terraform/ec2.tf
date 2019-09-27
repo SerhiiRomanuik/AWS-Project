@@ -22,15 +22,15 @@ resource "aws_instance" "inst1" {
     Name = "Terraform"
   }
 }
-
-resource "null_resource" "for_instance" {
-    triggers = {
-      cluster_instance_ids = "${join(",", aws_instance.inst1.*.id)}"
-    }
-    provisioner "local-exec" {
-   command = "${data.template_file.tpl2.template}"
- }
-}
+#
+# resource "null_resource" "for_instance" {
+#     triggers = {
+#       cluster_instance_ids = "${join(",", aws_instance.inst1.*.id)}"
+#     }
+#     provisioner "local-exec" {
+#    command = "${data.template_file.tpl2.template}"
+#  }
+# }
 
 ###############################################
 ## Security group:
