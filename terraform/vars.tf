@@ -1,6 +1,6 @@
 
 variable "cred_path" {
-  default = "/home/serhii/terraform/.aws/credentials"
+  default = ".aws/credentials"
 }
 
 variable "vpc_cidr" {
