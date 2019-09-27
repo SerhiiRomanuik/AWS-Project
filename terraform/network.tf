@@ -2,7 +2,7 @@
 ## Network setup
 ################################
 ## NETWORK.PLAN
-## terraform plan -target=aws_route_table_association.rtb1 -target=aws_route_table_association.rtb2 -target=aws_subnet.priv-1 -target=aws_subnet.priv-2 -out 1net.plan
+## terraform plan -target=aws_route_table_association.rtb1 -target=aws_route_table_association.rtb2 -target=aws_subnet.priv-1 -target=aws_subnet.priv-2 -out 1net.plan && terraform apply 1net.plan
 resource "aws_vpc" "vpc1" {
   cidr_block           = "${var.vpc_cidr}"
   enable_dns_hostnames = true

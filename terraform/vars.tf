@@ -28,7 +28,7 @@ variable "user_data" {
 }
 
 variable "inst_count"{
- default = "1"
+ default = "2"
 }
 
 variable "sg_cidr" {
@@ -68,14 +68,18 @@ variable "public_addr"{
   default = true
 }
 
-variable "dest1"{
-  default = "script.sh"
+variable "ruby_setup"{
+  default = "/home/serhii/terraform/ruby_setup.sh"
 }
 
-variable "dest2"{ 
-  default = "script2.sh"
+variable "endpoint" {
+  default = "/home/serhii/terraform/script_endpoint.sh"
+}
+
+variable "inst_attach"{
+  default = "/home/serhii/terraform/instance_attaching.sh"
 }
 
 variable "pr_key"{
-  default = "key-pair2.pem"
+  default = "./key-pair.pem"
 }

@@ -5,7 +5,7 @@
 ## aws autoscaling attach-instances --instance-ids [id] --auto-scaling-group-name ASG-TERRAFORM
 ###############################
 ## EC2.PLAN >> INST.PLAN
-## terraform plan -target=aws_instance.inst1 -target=aws_security_group.sg_db -target=aws_launch_configuration.lunch -target=aws_autoscaling_group.asg -target=aws_security_group.sg_elb -target=aws_elb.app_elb -out 4ec2.plan
+## terraform plan -target=aws_instance.inst1 -target=aws_security_group.sg_db -target=aws_launch_configuration.lunch -target=aws_autoscaling_group.asg -target=aws_security_group.sg_elb -target=aws_elb.app_elb -out 4ec2.plan  && terraform apply 4ec2.plan
 
 resource "aws_instance" "inst1" {
   count                       = "${var.inst_count}"
@@ -21,13 +21,19 @@ resource "aws_instance" "inst1" {
   tags = {
     Name = "Terraform"
   }
-     provisioner "local-exec" {
-    command = "${data.template_file.tpl2.template}"
-  }
+}
+
+resource "null_resource" "for_instance" {
+    triggers = {
+      cluster_instance_ids = "${join(",", aws_instance.inst1.*.id)}"
+    }
+    provisioner "local-exec" {
+   command = "${data.template_file.tpl2.template}"
+ }
 }
 
 ###############################################
-## Security group: 
+## Security group:
 ## Inbound: 80, 443, 22, ALL Trafic (5432 DB)
 ## Outbound: ALL Trafic (5432 DB)
 ###############################################

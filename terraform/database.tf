@@ -2,7 +2,8 @@
 ## RDS, based on PostgreSQL
 ######################################################
 ## DATABASE.PLAN
-## terraform plan -target=module.db -out 3dat.plan
+## terraform plan -target=module.db -out 3dat.plan && terraform apply 3dat.plan
+
 module "db" {
   source            = "terraform-aws-modules/rds/aws"
   version           = "~> 2.0"

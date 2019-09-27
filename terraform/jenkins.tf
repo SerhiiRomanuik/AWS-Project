@@ -2,7 +2,7 @@
 ## Jenkins setup with Ansible-playbook
 ########################################
 ## JENKINS.PLAN
-## terraform plan -target=aws_instance.jenkins -out 2jen.plan
+## terraform plan -target=aws_instance.jenkins -out 2jen.plan && terraform apply 2jen.plan
 resource "aws_instance" "jenkins" {
   availability_zone           = "${var.az[0]}"
   ami                         = "${var.ami_ub}"
@@ -16,9 +16,17 @@ resource "aws_instance" "jenkins" {
   tags = {
     Name = "Jenkins"
   }
+  # provisioner "file" {
+  #   source      = "${var.pr_key}"
+  #   destination = "/home/ubuntu/key-pair.pem"
+  # }
   provisioner "file" {
-    source      = "./script3.sh"
-    destination = "/home/ubuntu/script3.sh"
+    source      = "./ansible_setup.sh"
+    destination = "/home/ubuntu/ansible_setup.sh"
+  }
+  provisioner "file" {
+    source      = "./playbook.yml"
+    destination = "/home/ubuntu/playbook.yml"
   }
     connection {
       type        = "ssh"
@@ -26,8 +34,8 @@ resource "aws_instance" "jenkins" {
       private_key = "${file("${var.pr_key}")}"
       host        = "${aws_instance.jenkins.public_ip}"
     }
-  
+
   provisioner "remote-exec" {
-    inline = ["bash /home/ubuntu/script3.sh"]
+    inline = ["bash /home/ubuntu/ansible_setup.sh"]
    }
  }
