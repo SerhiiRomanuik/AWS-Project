@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-terraform refresh
 find output || mkdir output
 terraform output instance_id > output/output
 string1=`sed -n '2p' output/output`
