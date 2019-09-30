@@ -1,4 +1,3 @@
-
 variable "cred_path" {
   default = ".aws/credentials"
 }
